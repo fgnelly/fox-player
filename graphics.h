@@ -9,7 +9,7 @@ public:
 	static int const SCREEN_WIDTH = 600;
 	static int const SCREEN_HEIGHT = 350;
 	const char* WINDOW_TITLE = "Fox-Player";
-	const sf::Color WINDOW_COLOR = sf::Color::White;
+	const sf::Color WINDOW_COLOR = sf::Color::Black;
 
 private:
 
@@ -24,7 +24,7 @@ public:
 
 	static Graphics* Instance();
 	static void Release();
-	static void Initialized();
+	static bool Initalized();
 
 	void ClearBackBuffer();
 
