@@ -1,8 +1,9 @@
 #ifndef _PROGRAMMANAGER_H
 #define _PROGRAMMANAGER_H
-#include "graphics.h"
+#include "Texture.h"
 #include "Timer.h"
 #include "time.h"
+#include "InputManager.h"
 
 class ProgramManager {
 
@@ -16,7 +17,7 @@ private:
 	Graphics* mGraphics;
 
 	Timer* mTimer;
-	//InputManager* mInputMgr;
+	InputManager* mInputManager;
 
 	//ScreenManager* mScreenMgr;
 

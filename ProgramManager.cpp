@@ -1,5 +1,4 @@
 #include "ProgramManager.h"
-#include "graphics.h"
 
 ProgramManager* ProgramManager::sInstance = NULL;
 
@@ -19,7 +18,7 @@ void ProgramManager::Release()
 
 ProgramManager::ProgramManager()
 {
-	srand(time(0));
+	srand(static_cast<unsigned int>(time(0)));
 
 	mQuit = false;
 
@@ -31,6 +30,8 @@ ProgramManager::ProgramManager()
 	//init all managers like screen inout and such
 
 	mTimer = Timer::Instance();
+
+	mInputManager = InputManager::Instance();
 }
 
 ProgramManager::~ProgramManager()
@@ -42,23 +43,24 @@ ProgramManager::~ProgramManager()
 
 	Timer::Release();
 	mTimer = NULL;
+
+	InputManager::Release();
+	mInputManager = NULL;
 }
 
 void ProgramManager::EarlyUpdate()
 {
 	//TEMPORARY: MANUAL INPUT/EVENT UPDATE
-	mGraphics->GetRenderWindow()->pollEvent(mEvent);
+	//mGraphics->GetRenderWindow()->pollEvent(mEvent);
 
-	//mInputMananger->Update();
+	mInputManager->Update();
 
-	//if (mInputManager->IsWindowClosed())
-		//mQuit = true;
+	if (mInputManager->IsWindowClosed())
+		mQuit = true;
 
 	//TEMPORARY: FOR CLOSING THE WINDOW
-	if (mEvent.type == sf::Event::Closed)
-	{
-		mQuit = true;
-	}
+	//if (mEvent.type == sf::Event::Closed)
+		//mQuit = true;
 }
 
 void ProgramManager::Update()
@@ -95,7 +97,7 @@ void ProgramManager::Run()
 			EarlyUpdate();
 			Update(); //objects update
 			LateUpdate(); //collison delection and stuff
-			//mInputMgr->UpdatePrevInput();
+			mInputManager->UpdatePrevInput();
 			Render();
 		}
 
